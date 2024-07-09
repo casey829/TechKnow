@@ -1,12 +1,8 @@
 import React, { useContext } from "react";
-import { useParams } from "react-router-dom";
 import { UserContext } from "../../services/userContext";
 
 function Footer() {
   const { user } = useContext(UserContext);
-  const routeParams = useParams();
-
-  console.log(routeParams);
   return (
     <>
       {!user && (

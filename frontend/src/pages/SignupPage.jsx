@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/Layout";
-import { BsArrowRight } from "react-icons/bs";
+import { BsArrowDownRight } from "react-icons/bs";
 
 import BannerImg from "../assets/imgs/banner.jpeg";
 
@@ -102,10 +102,7 @@ function SignupPage() {
                     </a>
                   </label>
                 </div>
-                <a
-                  href="#"
-                  className="text-neutral-950 dark:text-neutral-dark-950 underline text-sm"
-                >
+                <a href="#" className="text-neutral-950 underline text-sm">
                   Need help?
                 </a>
               </div>
@@ -113,7 +110,7 @@ function SignupPage() {
                 type="submit"
                 className="w-full btn bg-yellow-400 rounded-full px-8 py-2 text-lg text-neutral-950 font-bold text-center"
               >
-                Sign Up <BsArrowRight className="inline text-2xl" />
+                Sign Up <BsArrowDownRight className="inline text-2xl" />
               </button>
             </form>
           </div>
