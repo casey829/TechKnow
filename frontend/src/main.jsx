@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import App from "./App.jsx";
 import "./index.css";
 
 import ErrorPage from "./pages/ErrorPage";
@@ -11,8 +10,8 @@ import SignupPage from "./pages/SignupPage";
 import QuizzesPage from "./pages/QuizzesPage";
 import QuizPage from "./pages/QuizPage";
 import ProfilePage from "./pages/ProfilePage";
-
-import Layout from "./components/Layout";
+import ContactusPage from "./pages/ContactusPage";
+import { UserProvider } from "./services/userContext";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +22,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/contact_us",
+    element: <ContactusPage />,
     errorElement: <ErrorPage />,
   },
   {
@@ -49,8 +53,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Layout>
+    <UserProvider>
       <RouterProvider router={router} />
-    </Layout>
+    </UserProvider>
   </React.StrictMode>
 );

@@ -1,7 +1,8 @@
 import React from "react";
+import Layout from "../components/Layout";
 
 function QuizPage() {
-  return <div>QuizPage</div>;
+  return <Layout>QuizPage</Layout>;
 }
 
 export default QuizPage;
