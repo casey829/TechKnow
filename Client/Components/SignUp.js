@@ -14,7 +14,7 @@ const Signup = () => {
       alert('Passwords do not match');
       return;
     }
-    // Implementing the signup logic here but for now it will just redirect to login page
+    // Implementing the signup logic here but for now it wil just redirect to login page
     console.log('Signing up with:', { name, email, password });
     history.push('/login');
   };
