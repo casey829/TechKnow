@@ -67,3 +67,17 @@ class QuizSubmission(Resource):
         topic = Topic.query.filter_by(name=topic_name).first()
         if not topic:
             quiz_ns.abort(404, "Topic not found")
+
+               # Create a new submission
+        submission = Submit(user_id=user_id, topic=topic_name)
+        db.session.add(submission)
+        db.session.commit()
+
+        # Calculate the score
+        score = 0
+        for answer_data in answers:
+            question_id = answer_data['question_id']
+            user_answer = answer_data['answer']
+            question = Question.query.get(question_id)
+            if question and question.answer.lower() == user_answer.lower():
+                score += 1
