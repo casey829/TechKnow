@@ -22,3 +22,15 @@ score_model = quiz_ns.model('Score', {
     'topic': fields.String(required=True, description='The topic of the score'),
     'score': fields.Integer(required=True, description='The score achieved by the user')
 })
+
+
+answer_model = quiz_ns.model('Answer', {
+    'question_id': fields.Integer(required=True, description='The ID of the question'),
+    'answer': fields.String(required=True, description='The answer provided by the user')
+})
+
+submit_model = quiz_ns.model('Submit', {
+    'user_id': fields.Integer(required=True, description='The ID of the user'),
+    'topic': fields.String(required=True, description='The topic of the quiz'),
+    'answers': fields.List(fields.Nested(answer_model))
+})
