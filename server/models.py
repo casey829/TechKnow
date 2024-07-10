@@ -1,9 +1,10 @@
+# models.py
+
 from server import db
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 bcrypt = Bcrypt()
-
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,7 +29,6 @@ class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     questions = db.relationship('Question', backref='topic', lazy=True)
-
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
