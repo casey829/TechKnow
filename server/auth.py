@@ -61,3 +61,25 @@ class SignUp(Resource):
         db.session.commit()
 
         return {'message': 'User created successfully'}, 201
+
+
+
+@auth_ns.route('/login')
+class Login(Resource):
+    @auth_ns.expect(login_model)
+    @auth_ns.marshal_with(token_model)
+    def post(self):
+        data = request.get_json()
+        email = data.get('email')
+        password = data.get('password')
+        user = User.query.filter_by(email=email).first()
+
+        if user is None or not user.check_password(password):
+            return {'message': 'Invalid credentials'}, 401
+
+        access_token = user.get_access_token()
+        refresh_token = user.get_refresh_token()
+        return {
+            'access_token': access_token,
+            'refresh_token': refresh_token
+        }, 200
