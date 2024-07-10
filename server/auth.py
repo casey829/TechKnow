@@ -35,7 +35,6 @@ message_model = auth_ns.model('Message', {
     'message': fields.String(description='Message')
 })
 
-
 profile_model = auth_ns.model('Profile', {
     'username': fields.String(description='The username'),
     'email': fields.String(description='The email address')
@@ -62,8 +61,6 @@ class SignUp(Resource):
 
         return {'message': 'User created successfully'}, 201
 
-
-
 @auth_ns.route('/login')
 class Login(Resource):
     @auth_ns.expect(login_model)
@@ -83,3 +80,28 @@ class Login(Resource):
             'access_token': access_token,
             'refresh_token': refresh_token
         }, 200
+
+@auth_ns.route('/logout')
+class Logout(Resource):
+    @jwt_required()
+    @auth_ns.doc(security='Bearer Auth')
+    @auth_ns.marshal_with(message_model)
+    def post(self):
+        response = jsonify({'message': 'Successfully logged out'})
+        unset_jwt_cookies(response)
+        return response
+
+@auth_ns.route('/profile')
+class UserProfile(Resource):
+    @jwt_required()
+    @auth_ns.doc(security='Bearer Auth')
+    @auth_ns.marshal_with(profile_model)
+    def get(self):
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
+        if not user:
+            return {'message': 'User not found'}, 404
+        return {
+            'username': user.username,
+            'email': user.email
+        }
