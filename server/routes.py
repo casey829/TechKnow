@@ -34,3 +34,36 @@ submit_model = quiz_ns.model('Submit', {
     'topic': fields.String(required=True, description='The topic of the quiz'),
     'answers': fields.List(fields.Nested(answer_model))
 })
+
+
+@quiz_ns.route('/topics')
+class TopicList(Resource):
+    @quiz_ns.doc('list_topics')
+    @quiz_ns.marshal_list_with(topic_model)
+    def get(self):
+        return Topic.query.all()
+
+@quiz_ns.route('/questions/<string:topic>')
+@quiz_ns.param('topic', 'The topic of the questions')
+class QuestionList(Resource):
+    @quiz_ns.doc('list_questions')
+    @quiz_ns.marshal_list_with(question_model)
+    def get(self, topic):
+        topic_obj = Topic.query.filter_by(name=topic).first()
+        if not topic_obj:
+            quiz_ns.abort(404, "Topic not found")
+        return Question.query.filter_by(topic_id=topic_obj.id).all()
+
+@quiz_ns.route('/submit')
+class QuizSubmission(Resource):
+    @quiz_ns.doc('submit_quiz')
+    @quiz_ns.expect(submit_model)
+    def post(self):
+        data = request.json
+        user_id = data['user_id']
+        topic_name = data['topic']
+        answers = data['answers']
+
+        topic = Topic.query.filter_by(name=topic_name).first()
+        if not topic:
+            quiz_ns.abort(404, "Topic not found")
