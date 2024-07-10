@@ -28,3 +28,28 @@ class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     questions = db.relationship('Question', backref='topic', lazy=True)
+
+
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    topic_id = db.Column(db.Integer, db.ForeignKey('topic.id'), nullable=False)
+    question_text = db.Column(db.Text, nullable=False)
+    answer = db.Column(db.String(50), nullable=False)
+
+class Score(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    topic = db.Column(db.String(50), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+
+class Submit(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    topic = db.Column(db.String(50), nullable=False)
+    answers = db.relationship('Answer', backref='submit', lazy=True)
+
+class Answer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    submit_id = db.Column(db.Integer, db.ForeignKey('submit.id'), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+    answer = db.Column(db.String(50), nullable=False)
