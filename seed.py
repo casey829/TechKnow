@@ -15,3 +15,7 @@ def seed_data():
             if not topic:
                 topic = Topic(name=topic_name)
                 db.session.add(topic)
+                db.session.commit()
+            topic_objects[topic_name] = topic
+
+       
