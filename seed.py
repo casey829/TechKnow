@@ -56,7 +56,8 @@ def seed_data():
                 {"question_text": "What is a lambda function in Python?", "answer": "An anonymous function defined with the lambda keyword"}
             ]
         }
-           # Add questions to the database
+
+        # Add questions to the database
         for topic, qs in questions.items():
             for q in qs:
                 question = Question(
