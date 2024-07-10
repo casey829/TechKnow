@@ -1,3 +1,5 @@
+# routes.py
+
 from flask_restx import Namespace, Resource, fields
 from flask import request
 from server.models import db, Topic, Question, Score, Submit, Answer
@@ -23,7 +25,6 @@ score_model = quiz_ns.model('Score', {
     'score': fields.Integer(required=True, description='The score achieved by the user')
 })
 
-
 answer_model = quiz_ns.model('Answer', {
     'question_id': fields.Integer(required=True, description='The ID of the question'),
     'answer': fields.String(required=True, description='The answer provided by the user')
@@ -34,7 +35,6 @@ submit_model = quiz_ns.model('Submit', {
     'topic': fields.String(required=True, description='The topic of the quiz'),
     'answers': fields.List(fields.Nested(answer_model))
 })
-
 
 @quiz_ns.route('/topics')
 class TopicList(Resource):
@@ -68,7 +68,7 @@ class QuizSubmission(Resource):
         if not topic:
             quiz_ns.abort(404, "Topic not found")
 
-               # Create a new submission
+        # Create a new submission
         submission = Submit(user_id=user_id, topic=topic_name)
         db.session.add(submission)
         db.session.commit()
@@ -82,7 +82,7 @@ class QuizSubmission(Resource):
             if question and question.answer.lower() == user_answer.lower():
                 score += 1
 
- # Add the answer to the database
+            # Add the answer to the database
             answer = Answer(submit_id=submission.id, question_id=question_id, answer=user_answer)
             db.session.add(answer)
 
