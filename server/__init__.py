@@ -6,7 +6,6 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS  # Import CORS
 from config import Config
 
-
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
@@ -19,7 +18,6 @@ authorizations = {
         'description': 'Bearer <JWT>'
     }
 }
-
 
 api = Api(
     title='Your API Title',
@@ -39,3 +37,11 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     api.init_app(app)
     jwt.init_app(app)
+
+    from server.routes import quiz_ns
+    api.add_namespace(quiz_ns, path='/quiz')
+
+    from server.auth import auth_ns
+    api.add_namespace(auth_ns, path='/auth')
+
+    return app
