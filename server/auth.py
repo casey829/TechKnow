@@ -34,3 +34,30 @@ token_model = auth_ns.model('Token', {
 message_model = auth_ns.model('Message', {
     'message': fields.String(description='Message')
 })
+
+
+profile_model = auth_ns.model('Profile', {
+    'username': fields.String(description='The username'),
+    'email': fields.String(description='The email address')
+})
+
+# Define the API resources
+@auth_ns.route('/signup')
+class SignUp(Resource):
+    @auth_ns.expect(signup_model)
+    @auth_ns.marshal_with(message_model)
+    def post(self):
+        data = request.get_json()
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+
+        if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
+            return {'message': 'User already exists'}, 409
+
+        new_user = User(username=username, email=email)
+        new_user.set_password(password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return {'message': 'User created successfully'}, 201
