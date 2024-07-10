@@ -81,3 +81,14 @@ class QuizSubmission(Resource):
             question = Question.query.get(question_id)
             if question and question.answer.lower() == user_answer.lower():
                 score += 1
+
+ # Add the answer to the database
+            answer = Answer(submit_id=submission.id, question_id=question_id, answer=user_answer)
+            db.session.add(answer)
+
+        # Save the score
+        new_score = Score(user_id=user_id, topic=topic_name, score=score)
+        db.session.add(new_score)
+        db.session.commit()
+
+        return {'message': 'Score submitted successfully!', 'score': score}
