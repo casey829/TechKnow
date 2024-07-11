@@ -23,7 +23,8 @@ function Header() {
       </div>
       <div className="links hidden md:flex space-x-4 items-center text-sm font-semibold">
         {["Quizzes", "Login", "Signup", "Contact_us", "Profile"].map((lnk) =>
-          lnk === "Profile" && !user ? null : (lnk === "Login" ||
+          (lnk === "Profile" && !user) ||
+          (lnk === "Quizzes" && !user) ? null : (lnk === "Login" ||
               lnk === "Signup") &&
             user ? null : (
             <NavLink key={lnk} className="group" to={`/${lnk.toLowerCase()}`}>
