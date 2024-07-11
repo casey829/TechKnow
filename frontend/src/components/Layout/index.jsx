@@ -7,7 +7,7 @@ function Index({ children, full = true }) {
     <>
       <Header />
       <main
-        className={`w-full min-h-[calc(100vh-4rem)] overflow-x-hidden ${
+        className={`w-full min-h-[calc(100vh-4rem)] overflow-x-hidden bg-[#f9f0e3] ${
           full === true && "px-5 sm:px-10 md:px-16 lg:px-24 xl:px-32"
         } `}
       >

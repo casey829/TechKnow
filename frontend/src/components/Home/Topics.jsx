@@ -12,25 +12,6 @@ function Topics() {
 
   return (
     <section className="relative w-full h-fit py-20 px-5 sm:px-10 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-t from-[#fff200] via-[#b5ac02] to-black">
-      {/* <div className="svg">
-        <svg
-          className="absolute z-40"
-          width="1300"
-          height="1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <text
-            x="-967"
-            y="1240"
-            fill="none"
-            // stroke="black"
-            strokeWidth="2"
-            className="text-[18rem] transform -rotate-[90deg] stroke-cyan-300/25"
-          >
-            Be Bold
-          </text>
-        </svg>
-      </div> */}
       <div className="w-full">
         <h2 className="font-bold text-6xl text-cyan-300 mb-5">
           Our Proffessional Quizzes
@@ -79,7 +60,7 @@ function Topics() {
             </Link>
           </div>
         </div>
-        <div className="translate-y-1/2 bg-white flex flex-col space-y-8 px-8 py-12 shadow-xl shadow-slate-600/50 drop-shadow-xl hover:shadow-slate-700 hover:translate-x-2 hover:translate-y-1 duration-200 ease-out">
+        <div className="translate-y-1/2 bg-white flex flex-col space-y-8 px-8 py-12 shadow-xl shadow-slate-600/50 drop-shadow-xl hover:shadow-slate-700 hover:translate-x-2 hover:translate-y-[calc(50%-4px)] duration-200 ease-out">
           <div className="icon">
             <img src={icon2} alt="icon" />
           </div>
