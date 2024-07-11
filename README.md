@@ -18,39 +18,64 @@ TechKnow is an interactive web application designed to empower users of all skil
 
 ## Target Audience
 .Individuals seeking to enter the tech industry
+
 .Developers looking to upskill and stay competitive
+
 .Anyone interested in expanding their knowledge base in key technology domains
 
 ## Project Goals
 1.To provide a comprehensive and engaging platform for assessing and developing technical skills.
+
 2.To empower users with the confidence and knowledge needed to excel in their tech careers.
+
 3.To bridge the gap between theoretical knowledge and practical application.
 
 ## Frontend Documentation
+
 ### Technologies Used
 1.React: JavaScript library for building user interfaces.
+
 2.Tailwind CSS: Utility-first CSS framework for styling.
+
 3.Axios: HTTP client for making API requests.
+
 4.React Router: For handling navigation.
+
 ## Key Components and Pages
+
 1.Home Page (Home.js): Landing page with overview and navigation to login, signup, and topic selection.
+
 2.Login Page (Login.js): User login interface.
+
 3.Sign-Up Page (Signup.js): User registration interface.
+
 4.Profile/Results Page (Profile.js): User profile and quiz history.
+
 5.Quizzes Page (Quizes.js): Interface for taking quizzes.
+
 6.Error Page (Error.js): Displays error messages for various scenarios.
+
 ## API Service (api.js)
 1.Login: POST /auth/login
+
 2.Signup: POST /auth/signup
+
 3.Fetch Topics: GET /quiz/topics
+
 4.Fetch Questions: GET /quiz/questions/:topic
+
 5.Submit Quiz: POST /quiz/submit
+
 6.Fetch Profile: GET /user/profile
+
 ## Backend Documentation
 ### Technologies Used
 1.Flask: Web framework for Python.
+
 2.Flask-RESTful: Extension for building REST APIs.
+
 3.SQLAlchemy: ORM for database interactions.
+
 4.Flask-Migrate: Extension for handling database migrations.
 ### Key Modules and Files
 1.app/init.py: Initializes the Flask app and configurations.
@@ -64,78 +89,127 @@ TechKnow is an interactive web application designed to empower users of all skil
 5.app/auth/routes.py: Handles authentication-related routes (login, signup, logout).
 
 6.instance/config.py: Configuration settings for different environments.
+
 7.run.py: Entry point to run the Flask app.
+
 8.requirements.txt: Python dependencies.
+
 9.API Endpoints
-  ### Authentication:
+### Authentication:
 .POST /auth/signup: Sign up a new user.
+
 .POST /auth/login: Log in a user.
+
 .POST /auth/logout: Log out a user.
-.Quiz:
+
+### Quiz:
+
 .GET /quiz/topics: Get available quiz topics.
+
 .GET /quiz/questions/
-: Get questions for a specific topic.
+
+.Get questions for a specific topic.
+
 .POST /quiz/submit: Submit quiz answers and get the score.
-.User Profile:
+
+### User Profile:
 .GET /user/profile: Get user profile information and quiz history.
 
 ## Getting Started
 #### Prerequisites
 .Node.js
+
 .npm
+
 .Python
+
 .pip
+
 .Installation
 
 ### Frontend
 .Clone the repository:
 
 .bash
+
+
 .Copy code
+
 git clone https://github.com/your-username/techknow.git
+
 .cd techknow
+
 .Navigate to the frontend directory:
 
 .bash
+
+
 .Copy code
-cd frontend
+
+.cd frontend
+
 .Install dependencies:
 
 .bash
+
+
 .Copy code
+
 .npm install
+
 .Run the development server:
 
 .bash
+
+
 .Copy code
+
 .npm start
 
 ### Backend
 1.Navigate to the backend directory:
 
 .bash
+
+
 .Copy code
+
 .cd backend
+
 .Create and activate a virtual environment:
 
 .bash
+
+
 .Copy code
+
 .python -m venv venv
+
 .source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+
 .Install dependencies:
 
 .bash
+
+
 .Copy code
+
 .pip install -r requirements.txt
+
 .Set up environment variables (if needed) and run database migrations:
 
 bash
+
 .Copy code
+
 .flask db upgrade
+
 .Run the Flask app:
 
 bash
+
 .Copy code
+
 .flask run
 
 ## Contributing
@@ -146,10 +220,17 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgements
 1.React
+
 2.Tailwind CSS
+
 3.Axios
+
 4.React Router
+
 5.Flask
+
 6.Flask-RESTful
+
 7.SQLAlchemy
+
 8.Flask-Migrate
