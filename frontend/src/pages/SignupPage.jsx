@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Layout from "../components/Layout";
 import { BsArrowDownRight } from "react-icons/bs";
 
 import BannerImg from "../assets/imgs/banner.jpeg";
+import { UserContext } from "../services/userContext";
+import { useNavigate } from "react-router-dom";
 
 function SignupPage() {
+  const navigate = useNavigate();
+
+  const { login, user } = useContext(UserContext);
+  useEffect(() => {
+    console.log("USER:", user);
+    if (!user) {
+      navigate("/signup", { replace: true });
+    } else {
+      navigate("/quizzes", { replace: true });
+    }
+  }, [user]);
   return (
     <Layout>
       <div className="w-full h-full flex justify-start items-center">
@@ -115,14 +128,14 @@ function SignupPage() {
             </form>
           </div>
           <div className="w-full h-full relative">
-            <div className="w-full md:max-w-[565px] rounded-[26px] bg-gradient-to-t from-primary-light-950 via-primary-light-300 to-primary-light-200 p-2">
+            <div className="relative z-20 w-full md:max-w-[565px] rounded-[26px] bg-gradient-to-t from-primary-light-950 via-primary-light-300 to-primary-light-200 p-2">
               <img
                 className="rounded-3xl h-[calc(100vh-130px)] md:max-w-[550px] md:-translate-x-14"
                 src={BannerImg}
                 alt="banner image"
               />
             </div>
-            <div className="absolute w-[calc(100%-1rem)] h-full -z-10 rounded-3xl bg-gradient-to-b from-cyan-600 to-yellow-500 bottom-[-20px] -right-0 flex justify-center items-center">
+            <div className="absolute w-[calc(100%-1rem)] h-full z-10 rounded-3xl bg-gradient-to-b from-cyan-600 to-yellow-500 bottom-[-20px] -right-0 flex justify-center items-center">
               {/* <img src={SignupImg} alt="signup image" /> */}
             </div>
           </div>

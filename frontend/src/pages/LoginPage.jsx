@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { UserContext } from "../services/userContext";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import { BsArrowDownRight } from "react-icons/bs";
 function LoginPage() {
   const navigate = useNavigate();
 
-  const { login } = useContext(UserContext);
+  const { login, user } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,6 +26,15 @@ function LoginPage() {
 
     navigate("/quizzes", { replace: true });
   };
+
+  useEffect(() => {
+    console.log("USER:", user);
+    if (!user) {
+      navigate("/login", { replace: true });
+    } else {
+      navigate("/quizzes", { replace: true });
+    }
+  }, [user]);
   return (
     <Layout>
       <div className="login-form h-[calc(100vh-100px)] w-full flex items-center">
