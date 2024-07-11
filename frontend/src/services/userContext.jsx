@@ -3,7 +3,18 @@ import React, { createContext, useState, useEffect } from "react";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("user_1");
+  const [subjects, setSubjects] = useState(null);
+
+  const fetchSubjects = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/api/subjects");
+      const result = await response.json();
+      setSubjects(result.subjects);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const login = (userData) => {
     localStorage.setItem("user_token", JSON.stringify(userData));
@@ -22,6 +33,10 @@ export const UserProvider = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    fetchSubjects();
+  }, []);
+
   return (
     <UserContext.Provider
       value={{
@@ -29,6 +44,7 @@ export const UserProvider = ({ children }) => {
         setUser,
         login,
         logout,
+        subjects,
       }}
     >
       {children}

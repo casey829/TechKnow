@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/quizzes/quiz/:question",
+    path: "/quizzes/:quiz",
     element: <QuizPage />,
     errorElement: <ErrorPage />,
   },

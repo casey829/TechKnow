@@ -28,25 +28,30 @@ function LoginPage() {
   };
   return (
     <Layout>
-      <div className="login-form h-[calc(100vh-130px)] w-full flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-start">
-          <div className="w-full h-full hidden lg:grid grid-cols-2 gap-4 items-stretch max-w-[580px]">
+      <div className="login-form h-[calc(100vh-100px)] w-full flex items-center">
+        <div className="h-full items-center justify-start grid grid-cols-1 lg:grid-cols-5">
+          <div className="w-full pt-5 pr-20 h-full col-span-3 hidden lg:grid grid-cols-2 gap-4 items-stretch max-w-2xl">
             <img className="rounded-3xl w-full " src={img1} alt="" />
-            <img className="rounded-3xl w-40 h-40 mt-20" src={img2} alt="" />
-            <img
-              className="rounded-3xl w-40 h-40 ml-[7.6rem]"
-              src={img3}
-              alt=""
-            />
+            <div className="w-full h-full flex items-end justify-start">
+              <img className="rounded-3xl w-40 h-40" src={img2} alt="" />
+            </div>
+            <div className="w-full h-full flex items-start justify-end">
+              <img className="rounded-3xl w-40 h-40" src={img3} alt="" />
+            </div>
             <img className="rounded-3xl w-full" src={img4} alt="" />
           </div>
-          <div className="mr-12 lg:pl-12">
-            <span className="h-12 px-7 py-3.5 bg-neutral-0 rounded-3xl border border-neutral-300 dark:border-neutral-dark-300 text-neutral-700 dark:text-neutral-dark-700 text-base font-bold leading-none mb-4 inline-block">
+          <div className="mr-12 h-[calc(100vh-120px)] flex flex-col justify-center w-full col-span-2">
+            <span className="h-12 w-fit px-7 py-3.5 bg-neutral-0 rounded-3xl border border-neutral-300 dark:border-neutral-dark-300 text-neutral-700 dark:text-neutral-dark-700 text-base font-bold leading-none mb-4 inline-block">
               Welcome Back!
             </span>
-            <p className="text-neutral-700 mb-16 font-medium text-2xl">
-              Log in to the system to receive paid quality <br />
-              articles and many other great functions
+            <p className="text-neutral-700 mb-12 font-medium text-3xl tracking-tight">
+              Log in to the system
+              <br />{" "}
+              <span className="whitespace-nowrap">
+                to get started with your mastership.
+              </span>{" "}
+              <br />
+              Code, tech, and more.
             </p>
             <form action="">
               <div className="form-group grid gap-4 mb-4">
@@ -60,7 +65,7 @@ function LoginPage() {
                   <input
                     type="email"
                     placeholder="Email"
-                    className="input-lg rounded-lg text-sm py-2 border-2 border-cyan-800/30 placeholder:pl-2"
+                    className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
                   />
                 </div>
               </div>
@@ -75,7 +80,7 @@ function LoginPage() {
                   <input
                     type="password"
                     placeholder="Password"
-                    className="input-lg rounded-lg text-sm py-2 border-2 border-cyan-800/30 placeholder:pl-2"
+                    className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
                   />
                 </div>
               </div>
@@ -84,7 +89,7 @@ function LoginPage() {
                   <input
                     type="checkbox"
                     id="save-info"
-                    className="w-4 h-4 order-none outline outline-cyan-800/30 text-neutral-0  rounded cursor-pointer mr-2"
+                    className="w-4 h-4 ml-1 order-none outline outline-cyan-800/30 text-neutral-0  rounded cursor-pointer mr-2"
                   />
                   <label
                     htmlFor="save-info"
@@ -102,7 +107,7 @@ function LoginPage() {
               </div>
               <button
                 type="submit"
-                className="w-full btn bg-yellow-400 rounded-full px-8 py-2 text-lg text-center font-semibold"
+                className="w-full btn bg-yellow-400 rounded-full px-8 py-3 text-lg text-center font-semibold"
               >
                 Sign In <BsArrowDownRight className="inline text-2xl" />
               </button>

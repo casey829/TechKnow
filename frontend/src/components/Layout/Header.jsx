@@ -12,7 +12,7 @@ function Header() {
     navigate("/", { replace: true });
   };
   return (
-    <header className="h-16 w-full sticky top-0 inset-x-0 z-50 px-5 sm:px-10 md:px-16 lg:px-24 flex space-x-10 justify-between items-center bg-gray-50">
+    <header className="h-16 w-full flex space-x-10 justify-between items-center sticky top-0 inset-x-0 z-50 px-5 sm:px-10 md:px-16 lg:px-24 xl:px-32 bg-black text-teal-100">
       <div className="logo">
         <NavLink
           to="/"
@@ -44,6 +44,7 @@ function Header() {
           </button>
         )}
       </div>
+      <span className="h-[2px] bg-gray-500/35 absolute left-24 -translate-x-2.5 right-28 top-14"></span>
     </header>
   );
 }
