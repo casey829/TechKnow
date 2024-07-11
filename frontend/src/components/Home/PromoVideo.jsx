@@ -56,7 +56,7 @@ function PromoVideo() {
   });
 
   return (
-    <section className="w-full h-[85vh] bg-black pb-12">
+    <section className="w-full h-[85vh] bg-black pb-12 relative z-20">
       <div className="playerContainer h-full w-full relative">
         <video
           className="videoPlayer object-cover w-full rounded-[5rem] px-2 h-full border-red-600"

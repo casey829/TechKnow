@@ -2,7 +2,7 @@ import React from "react";
 
 function Banner() {
   return (
-    <section className="w-full h-[calc(100vh-150px)] bg-gradient-to-b from-black via-black/85 to-black">
+    <section className="w-full  relative z-20 h-[calc(100vh-150px)] bg-gradient-to-b from-black via-black/85 to-black">
       <div className="w-full text-teal-100 py-20 px-5 sm:px-10 md:px-16 lg:px-24 xl:px-32">
         <h1 className="heading-1 py-4 text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-teal-600 to-teal-50">
           Hey there, <br />

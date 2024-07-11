@@ -4,14 +4,14 @@ import { BsArrowDownRight } from "react-icons/bs";
 
 function Subscribe() {
   return (
-    <section className="w-full h-fit bg-[#fff200]">
+    <section className="w-full h-fit relative z-20 bg-[#fff200]">
       <div className="w-full grid grid-cols-2 border-2 border-black">
         <div className="flex items-center justify-center pl-5 sm:pl-10 md:pl-16 lg:pl-24 xl:pl-32">
           <figure>
             <img src={subImg} alt="" />
           </figure>
         </div>
-        <div className="w-full h-full pt-20 pb-4 px-20 sm:pr-10 md:pr-16 lg:pr-24 xl:pr-32 text-white bg-black">
+        <div className="w-full h-full bg-black pt-20 pb-4 px-20 sm:pr-10 md:pr-16 lg:pr-24 xl:pr-32 text-white bg-">
           <h3 className="text-7xl font-bold pb-5">Let’s Talk.</h3>
           <p>
             Take the first step toward meaningful and measurable change by
