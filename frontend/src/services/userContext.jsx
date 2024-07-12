@@ -80,7 +80,8 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("user_token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
     setUser(null);
   };
 

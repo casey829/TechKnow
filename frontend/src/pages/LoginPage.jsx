@@ -19,7 +19,8 @@ function LoginPage() {
     e.preventDefault();
     const credentials = { email, password };
     try {
-      await loginUser(credentials);
+      const res = await loginUser(credentials);
+      console.log("RES: ", user);
       // navigate("/quizzes", { replace: true });
     } catch (error) {
       console.error("Error logging in:", error);

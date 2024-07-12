@@ -162,8 +162,11 @@ function SignupPage() {
                 </a>
               </div>
               <button
+                disabled={password.length < 8 ? true : false}
                 type="submit"
-                className="w-full btn bg-yellow-400 rounded-full px-8 py-3 text-lg text-neutral-950 font-bold text-center"
+                className={`"w-full btn w-full rounded-full px-8 py-3 text-lg text-neutral-950 font-bold text-center" ${
+                  password.length < 8 ? "bg-gray-600" : "bg-yellow-400"
+                }`}
               >
                 Sign Up <BsArrowDownRight className="inline text-2xl" />
               </button>
