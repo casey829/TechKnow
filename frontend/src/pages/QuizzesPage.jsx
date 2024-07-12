@@ -17,7 +17,7 @@ function QuizzesPage() {
       {" "}
       <section className="relative w-full h-fit py-20">
         <div className="w-full">
-          <h2 className="font-bold tracking-tight text-8xl text-cyan-700 mb-5">
+          <h2 className="font-bold tracking-tight text-7xl text-cyan-700 mb-5">
             This is your starting
             <br /> point, choose a topic to start.{" "}
           </h2>
@@ -27,10 +27,7 @@ function QuizzesPage() {
           {topics &&
             topics.map((topic) => (
               <Link
-                to={`/quizzes/${topic.name
-                  ?.toLowerCase()
-                  .split("/")
-                  .join("_")}`}
+                to={`/quizzes/${topic.name.split("/").join("_")}`}
                 key={topic.id}
                 className="bg-white flex flex-col space-y-8 py-12 shadow-xl shadow-slate-600/50 drop-shadow-xl hover:shadow-slate-700 hover:translate-x-2 hover:translate-y-1 duration-200 ease-out"
               >

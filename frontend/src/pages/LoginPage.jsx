@@ -27,7 +27,7 @@ function LoginPage() {
   };
 
   useEffect(() => {
-    alert("user:", user);
+    // alert("user:", user);
     if (user) {
       navigate("/quizzes", { replace: true });
     }

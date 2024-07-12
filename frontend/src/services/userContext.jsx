@@ -6,6 +6,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [subjects, setSubjects] = useState(null);
   const [topics, setTopics] = useState(null);
+  const [questions, setQuestions] = useState(null);
 
   const registerUser = async (userData) => {
     try {
@@ -52,6 +53,18 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const fetchQuestions = async (topic) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/quiz/questions/${topic}`
+      );
+      const result = await response.json();
+      setQuestions(result);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   const login = (userData) => {
     localStorage.setItem("user_token", JSON.stringify(userData));
     setUser(userData);
@@ -84,6 +97,8 @@ export const UserProvider = ({ children }) => {
         topics,
         registerUser,
         loginUser,
+        fetchQuestions,
+        questions,
       }}
     >
       {children}
