@@ -18,7 +18,7 @@ function Header() {
           to="/"
           className="text-xl font-bold tracking-tighter leading-snug"
         >
-          <h1>Knowledge Base</h1>
+          <h1>Technow</h1>
         </NavLink>
       </div>
       <div className="links hidden md:flex space-x-4 items-center text-sm font-semibold">
