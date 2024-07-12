@@ -1,44 +1,70 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Layout from "../components/Layout";
 import { BsArrowDownRight } from "react-icons/bs";
-
 import BannerImg from "../assets/imgs/banner.jpeg";
 import { UserContext } from "../services/userContext";
 import { useNavigate } from "react-router-dom";
 
 function SignupPage() {
   const navigate = useNavigate();
+  const { registerUser, user } = useContext(UserContext);
 
-  const { login, user } = useContext(UserContext);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password !== repeatPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+    const userData = {
+      username: `${firstName}_${lastName}`.toLowerCase(),
+      email,
+      password,
+    };
+    try {
+      registerUser(userData);
+      navigate("/login", { replace: true });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    console.log("USER:", user);
-    if (!user) {
-      navigate("/signup", { replace: true });
-    } else {
+    if (user) {
       navigate("/quizzes", { replace: true });
     }
-  }, [user]);
+  }, [user, navigate]);
+
   return (
     <Layout>
       <div className="w-full h-full flex justify-start items-center">
         <div className="w-full h-full grid grid-cols-1 lg:gap-20 lg:grid-cols-2">
           <div className="max-w-md h-full flex flex-col items-start justify-center">
-            <p className="max-w-96 text-neutral-700 mt-8 mb-10  font-medium text-3xl">
+            <p className="max-w-96 text-neutral-700 mt-8 mb-10 font-medium text-3xl">
               Create a new account and enjoy premium content
             </p>
-            <form action="" className="w-full">
+            <form onSubmit={handleSubmit} className="w-full">
               <div className="grid md:grid-cols-2 gap-4 mb-4">
                 <div className="form-group grid gap-1">
                   <label
-                    htmlFor="last-name"
+                    htmlFor="first-name"
                     className="input-label text-xs font-semibold"
                   >
                     First Name
                   </label>
                   <input
                     type="text"
+                    name="firstName"
                     placeholder="First name"
                     className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="form-group grid gap-1">
@@ -50,8 +76,12 @@ function SignupPage() {
                   </label>
                   <input
                     type="text"
+                    name="lastName"
                     placeholder="Last name"
                     className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -65,8 +95,12 @@ function SignupPage() {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     placeholder="Email"
                     className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -80,21 +114,29 @@ function SignupPage() {
                   </label>
                   <input
                     type="password"
+                    name="password"
                     placeholder="Password"
                     className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="form-group grid gap-1">
                   <label
-                    htmlFor="password"
+                    htmlFor="repeat-password"
                     className="input-label text-xs font-semibold"
                   >
                     Repeat Password
                   </label>
                   <input
                     type="password"
+                    name="repeatPassword"
                     placeholder="Repeat Password"
                     className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
+                    value={repeatPassword}
+                    onChange={(e) => setRepeatPassword(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -103,7 +145,7 @@ function SignupPage() {
                   <input
                     type="checkbox"
                     id="save-info"
-                    className="w-4 h-4 ml-1 border-none outline outline-cyan-800/30 text-neutral-0  rounded-lg cursor-pointer mr-2"
+                    className="w-4 h-4 ml-1 border-none outline outline-cyan-800/30 text-neutral-0 rounded-lg cursor-pointer mr-2"
                   />
                   <label
                     htmlFor="save-info"

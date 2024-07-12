@@ -3,14 +3,50 @@ import React, { createContext, useState, useEffect } from "react";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState("user_1");
+  const [user, setUser] = useState(null);
   const [subjects, setSubjects] = useState(null);
+  const [topics, setTopics] = useState(null);
 
-  const fetchSubjects = async () => {
+  const registerUser = async (userData) => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/subjects");
+      const response = await fetch("http://127.0.0.1:5000/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
       const result = await response.json();
-      setSubjects(result.subjects);
+      setUser(result.user);
+      // alert("User registered successfully");
+    } catch (error) {
+      console.error("Error registering user:", error);
+    }
+  };
+
+  const loginUser = async (credentials) => {
+    try {
+      const response = await fetch("http://localhost:5000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+      console.log("backend_cred: ", credentials);
+      const result = await response.json();
+      setUser(result);
+      console.log("user: ", user);
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
+  };
+
+  const fetchTopics = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/quiz/topics");
+      const result = await response.json();
+      setTopics(result);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -34,7 +70,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    fetchSubjects();
+    fetchTopics();
   }, []);
 
   return (
@@ -45,6 +81,9 @@ export const UserProvider = ({ children }) => {
         login,
         logout,
         subjects,
+        topics,
+        registerUser,
+        loginUser,
       }}
     >
       {children}

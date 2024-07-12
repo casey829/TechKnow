@@ -1,31 +1,19 @@
 import React, { useContext, useEffect } from "react";
 import Layout from "../components/Layout";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../services/userContext";
-import {
-  BiChat,
-  BiChevronLeftSquare,
-  BiChevronRight,
-  BiChevronRightSquare,
-  BiShare,
-} from "react-icons/bi";
+import { BiChat, BiChevronRight, BiShare } from "react-icons/bi";
 
-import tpImg from "../assets/imgs/animation.gif";
-import icon1 from "../assets/imgs/icons9.svg";
-import icon2 from "../assets/imgs/icon4.svg";
-import icon3 from "../assets/imgs/icon2.svg";
 import { BsArrowLeft, BsQuestionCircleFill } from "react-icons/bs";
 
 function QuizPage() {
   const navigate = useNavigate();
-  const { user, logout } = useContext(UserContext);
+  const { quiz } = useParams();
+  const { user } = useContext(UserContext);
 
-  const handleLogout = () => {
-    logout();
-    navigate("/", { replace: true });
-  };
+  console.log("ROUTE:", quiz);
+
   useEffect(() => {
-    console.log("USER:", user);
     if (!user) {
       navigate("/login", { replace: true });
     }
