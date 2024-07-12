@@ -139,7 +139,13 @@ function QuizPage() {
                     </h4>
                   </div>
                   <div className="options w-full pt-5">
-                    <p className="w-full p-3 rounded-lg border border-slate-500">
+                    <p
+                      className={`"w-full p-3 rounded-lg border border-slate-500" ${
+                        question.answer == userAnswers[index]
+                          ? "bg-green-400"
+                          : ""
+                      }`}
+                    >
                       Your answer: {userAnswers[index]}
                     </p>
                     <p className="w-full p-3 rounded-lg border border-slate-500">
