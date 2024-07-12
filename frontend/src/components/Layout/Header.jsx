@@ -22,7 +22,7 @@ function Header() {
         </NavLink>
       </div>
       <div className="links hidden md:flex space-x-4 items-center text-sm font-semibold">
-        {["Quizzes", "Login", "Signup", "Contact_us", "Profile"].map((lnk) =>
+        {["Quizzes", "Login", "Signup"].map((lnk) =>
           (lnk === "Profile" && !user) ||
           (lnk === "Quizzes" && !user) ? null : (lnk === "Login" ||
               lnk === "Signup") &&

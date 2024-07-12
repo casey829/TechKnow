@@ -34,10 +34,19 @@ export const UserProvider = ({ children }) => {
         },
         body: JSON.stringify(credentials),
       });
-      console.log("backend_cred: ", credentials);
+
       const result = await response.json();
-      setUser(result);
-      console.log("user: ", user);
+
+      // Store the tokens in localStorage
+      localStorage.setItem("access_token", result.access_token);
+      localStorage.setItem("refresh_token", result.refresh_token);
+
+      // Optionally, store the user information if it's returned by the backend
+      if (result.user) {
+        localStorage.setItem("user", JSON.stringify(result.user));
+      }
+
+      setUser(result.user || result); // Depending on your backend response structure
     } catch (error) {
       console.error("Error logging in:", error);
     }

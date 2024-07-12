@@ -14,6 +14,9 @@ function QuizPage() {
   const [userAnswers, setUserAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
+  const [resources, setResources] = useState([]);
+  const [resourceTitle, setResourceTitle] = useState("");
+  const [resourceUrl, setResourceUrl] = useState("");
 
   useEffect(() => {
     if (!user) {
@@ -55,9 +58,17 @@ function QuizPage() {
     setScore(newScore);
   };
 
-  const progressPercentage = Math.round(
-    (currentQuestionIndex / (questions?.length - 1)) * 100
-  );
+  const progressPercentage = questions?.length
+    ? Math.round((currentQuestionIndex / questions.length) * 100)
+    : 0;
+
+  const handleAddResource = () => {
+    if (resourceTitle && resourceUrl) {
+      setResources([...resources, { title: resourceTitle, url: resourceUrl }]);
+      setResourceTitle("");
+      setResourceUrl("");
+    }
+  };
 
   return (
     <Layout>
@@ -176,10 +187,46 @@ function QuizPage() {
           <div className="h-full px-4 py-5 rounded-xl bg-cyan-100 border border-slate-600">
             <h3 className="text-4xl font-bold">Resources</h3>
             <span className="h-[3px] w-16 bg-cyan-950 flex rounded-full mt-5 mb-8"></span>
+            <div className="resource-form mb-4">
+              <input
+                type="text"
+                placeholder="Title"
+                value={resourceTitle}
+                onChange={(e) => setResourceTitle(e.target.value)}
+                className="w-full p-2 mb-2 border border-slate-500 rounded-lg"
+              />
+              <input
+                type="url"
+                placeholder="URL"
+                value={resourceUrl}
+                onChange={(e) => setResourceUrl(e.target.value)}
+                className="w-full p-2 mb-2 border border-slate-500 rounded-lg"
+              />
+              <button
+                onClick={handleAddResource}
+                className="w-full p-2 bg-cyan-700 text-white font-semibold rounded-lg"
+              >
+                Add Resource
+              </button>
+            </div>
+            <div className="resource-list">
+              {resources.map((resource, index) => (
+                <div key={index} className="resource-item mb-2">
+                  <a
+                    href={resource.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-700 underline"
+                  >
+                    {resource.title}
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="px-4 py-6 rounded-xl bg-cyan-100 border border-slate-600">
             <h3 className="text-3xl font-bold">
-              Results: {(score / questions.length) * 100}%
+              Results: {score > 0 ? (score / questions.length) * 100 : 0}%
             </h3>
           </div>
         </div>

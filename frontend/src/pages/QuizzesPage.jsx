@@ -11,7 +11,8 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../services/userContext";
 
 function QuizzesPage() {
-  const { topics } = useContext(UserContext);
+  const { topics, user } = useContext(UserContext);
+  console.log("USER:", user);
   return (
     <Layout>
       {" "}
