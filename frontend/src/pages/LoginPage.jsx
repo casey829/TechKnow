@@ -14,23 +14,27 @@ function LoginPage() {
   const { loginUser, user } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const credentials = { email, password };
     try {
       const res = await loginUser(credentials);
-      console.log("RES: ", user);
-      // navigate("/quizzes", { replace: true });
+      if (res.error) {
+        setError(res?.error);
+        return;
+      }
     } catch (error) {
       console.error("Error logging in:", error);
     }
   };
 
   useEffect(() => {
-    // alert("user:", user);
-    if (user) {
+    if (user?.access_token) {
       navigate("/quizzes", { replace: true });
+    } else {
+      console.log("Login failed, wrong username or password...");
     }
   }, [user, navigate]);
 
@@ -61,6 +65,17 @@ function LoginPage() {
               <br />
               Code, tech, and more.
             </p>
+            {error && (
+              <div className="bg-red-400 w-full py-1 px-2 rounded-lg mb-4 font-semibold relative">
+                <p>{error}</p>
+                <span
+                  onClick={() => setError(null)}
+                  className="absolute text-2xl top-[45%] -translate-y-1/2 right-2 cursor-pointer"
+                >
+                  &times;
+                </span>
+              </div>
+            )}
             <form onSubmit={handleLogin}>
               <div className="form-group grid gap-4 mb-4">
                 <div className="form-group grid gap-1">
@@ -74,7 +89,7 @@ function LoginPage() {
                     type="email"
                     name="email"
                     placeholder="Email"
-                    className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
+                    className="input-lg pl-2 rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -93,7 +108,7 @@ function LoginPage() {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
+                    className="input-lg pl-2 rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required

@@ -29,7 +29,7 @@ function PromoVideo() {
     setDurationSec(videoRef.current.duration);
     setDuration([min, sec]);
 
-    console.log(videoRef.current.duration);
+    // console.log(videoRef.current.duration);
     const interval = setInterval(() => {
       const { min, sec } = sec2Min(videoRef.current.currentTime);
       setCurrentTimeSec(videoRef.current.currentTime);

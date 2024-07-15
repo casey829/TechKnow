@@ -9,25 +9,33 @@ function SignupPage() {
   const navigate = useNavigate();
   const { registerUser, user } = useContext(UserContext);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== repeatPassword) {
       alert("Passwords do not match!");
       return;
     }
     const userData = {
-      username: `${firstName}_${lastName}`.toLowerCase(),
+      firstname,
+      lastname,
       email,
       password,
     };
     try {
-      registerUser(userData);
+      const res = await registerUser(userData);
+
+      if (res.error) {
+        setError(res?.error);
+        return;
+      }
       navigate("/login", { replace: true });
     } catch (error) {
       console.log(error);
@@ -48,6 +56,17 @@ function SignupPage() {
             <p className="max-w-96 text-neutral-700 mt-8 mb-10 font-medium text-3xl">
               Create a new account and enjoy premium content
             </p>
+            {error && (
+              <div className="bg-red-400 w-full py-1 px-2 rounded-lg mb-4 font-semibold relative">
+                <p>{error}</p>
+                <span
+                  onClick={() => setError(null)}
+                  className="absolute text-2xl top-[45%] -translate-y-1/2 right-2 cursor-pointer"
+                >
+                  &times;
+                </span>
+              </div>
+            )}
             <form onSubmit={handleSubmit} className="w-full">
               <div className="grid md:grid-cols-2 gap-4 mb-4">
                 <div className="form-group grid gap-1">
@@ -59,11 +78,11 @@ function SignupPage() {
                   </label>
                   <input
                     type="text"
-                    name="firstName"
+                    name="firstname"
                     placeholder="First name"
-                    className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    className="input-lg pl-2 rounded-lg text-sm py-2.5 border-2 border-cyan-800/30 placeholder:pl-2"
+                    value={firstname}
+                    onChange={(e) => setFirstname(e.target.value)}
                     required
                   />
                 </div>
@@ -76,11 +95,11 @@ function SignupPage() {
                   </label>
                   <input
                     type="text"
-                    name="lastName"
+                    name="lastname"
                     placeholder="Last name"
-                    className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                    className="input-lg pl-2 rounded-lg text-sm py-2.5 border-2 border-cyan-800/30 placeholder:pl-2"
+                    value={lastname}
+                    onChange={(e) => setLastname(e.target.value)}
                     required
                   />
                 </div>
@@ -97,7 +116,7 @@ function SignupPage() {
                     type="email"
                     name="email"
                     placeholder="Email"
-                    className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
+                    className="input-lg pl-2 rounded-lg text-sm py-2.5 border-2 border-cyan-800/30 placeholder:pl-2"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -116,7 +135,7 @@ function SignupPage() {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
+                    className="input-lg pl-2 rounded-lg text-sm py-2.5 border-2 border-cyan-800/30 placeholder:pl-2"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -133,7 +152,7 @@ function SignupPage() {
                     type="password"
                     name="repeatPassword"
                     placeholder="Repeat Password"
-                    className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
+                    className="input-lg pl-2 rounded-lg text-sm py-2.5 border-2 border-cyan-800/30 placeholder:pl-2"
                     value={repeatPassword}
                     onChange={(e) => setRepeatPassword(e.target.value)}
                     required

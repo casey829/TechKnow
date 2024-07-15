@@ -16,7 +16,7 @@ function Posts() {
             fill="none"
             // stroke="black"
             strokeWidth="2"
-            className="text-[23rem] transform stroke-cyan-700/25"
+            className="text-[20.3rem] transform stroke-cyan-700/25"
           >
             Partners
           </text>

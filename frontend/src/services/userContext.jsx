@@ -4,13 +4,14 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [subjects, setSubjects] = useState(null);
-  const [topics, setTopics] = useState(null);
-  const [questions, setQuestions] = useState(null);
+  const [topics, setTopics] = useState([]);
+  const [resources, setResources] = useState([]);
+  const [questions, setQuestions] = useState([]);
+  const [topicDetails, setTopicDetails] = useState(null);
 
   const registerUser = async (userData) => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/auth/signup", {
+      const response = await fetch("http://127.0.0.1:5000/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -19,7 +20,7 @@ export const UserProvider = ({ children }) => {
       });
       const result = await response.json();
       setUser(result.user);
-      // alert("User registered successfully");
+      return result;
     } catch (error) {
       console.error("Error registering user:", error);
     }
@@ -27,7 +28,7 @@ export const UserProvider = ({ children }) => {
 
   const loginUser = async (credentials) => {
     try {
-      const response = await fetch("http://localhost:5000/auth/login", {
+      const response = await fetch("http://127.0.0.1:5000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,16 +38,15 @@ export const UserProvider = ({ children }) => {
 
       const result = await response.json();
 
-      // Store the tokens in localStorage
+      if (result?.error) {
+        return result;
+      }
+
       localStorage.setItem("access_token", result.access_token);
       localStorage.setItem("refresh_token", result.refresh_token);
 
-      // Optionally, store the user information if it's returned by the backend
-      if (result.user) {
-        localStorage.setItem("user", JSON.stringify(result.user));
-      }
-
-      setUser(result.user || result); // Depending on your backend response structure
+      setUser(result.user || result);
+      return result;
     } catch (error) {
       console.error("Error logging in:", error);
     }
@@ -54,46 +54,129 @@ export const UserProvider = ({ children }) => {
 
   const fetchTopics = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/quiz/topics");
+      const response = await fetch("http://127.0.0.1:5000/topics");
       const result = await response.json();
-      setTopics(result);
+      return result;
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching topics:", error);
+      return [];
     }
   };
 
-  const fetchQuestions = async (topic) => {
+  const fetchResources = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/resources");
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error("Error fetching resources:", error);
+      return [];
+    }
+  };
+
+  const addResource = async (resource) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/resources", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(resource),
+      });
+
+      const result = await response.json();
+      setResources([...resources, result]);
+      return result;
+    } catch (error) {
+      console.error("Error adding resource:", error);
+    }
+  };
+
+  const deleteResource = async (resourceId) => {
+    try {
+      await fetch(`http://127.0.0.1:5000/resources/${resourceId}`, {
+        method: "DELETE",
+      });
+
+      setResources(resources.filter((r) => r.id !== resourceId));
+    } catch (error) {
+      console.error("Error deleting resource:", error);
+    }
+  };
+
+  const fetchTopicDetails = async (topicName) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/topics/${topicName}`);
+      const result = await response.json();
+      setTopicDetails(result);
+      setQuestions(result.questions || []);
+      setResources(result.resources || []);
+    } catch (error) {
+      console.error("Error fetching topic details:", error);
+    }
+  };
+
+  const fetchResourceDetails = async (resourceId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/quiz/questions/${topic}`
+        `http://127.0.0.1:5000/resources/${resourceId}`
       );
       const result = await response.json();
-      setQuestions(result);
+      setResources([result]);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching resource details:", error);
     }
   };
 
-  const login = (userData) => {
-    localStorage.setItem("user_token", JSON.stringify(userData));
-    setUser(userData);
+  const fetchUserDetails = async (token) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/auth/user", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const result = await response.json();
+      setUser(result.user);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      logout();
+    }
   };
 
   const logout = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
+    localStorage.removeItem("user");
     setUser(null);
   };
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user_token");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    const accessToken = localStorage.getItem("access_token");
+
+    if (accessToken) {
+      fetchUserDetails(accessToken);
+    } else {
+      logout();
     }
   }, []);
 
   useEffect(() => {
-    fetchTopics();
+    const fetchData = async () => {
+      try {
+        const [topicsResult, resourcesResult] = await Promise.all([
+          fetchTopics(),
+          fetchResources(),
+        ]);
+        setTopics(topicsResult);
+        setResources(resourcesResult);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -101,14 +184,18 @@ export const UserProvider = ({ children }) => {
       value={{
         user,
         setUser,
-        login,
         logout,
-        subjects,
         topics,
+        resources,
+        setResources,
         registerUser,
         loginUser,
-        fetchQuestions,
+        fetchTopicDetails,
+        fetchResourceDetails,
+        addResource,
+        deleteResource,
         questions,
+        topicDetails,
       }}
     >
       {children}

@@ -11,7 +11,7 @@ function Subscribe() {
             <img src={subImg} alt="" />
           </figure>
         </div>
-        <div className="w-full h-full bg-black pt-20 pb-4 px-20 sm:pr-10 md:pr-16 lg:pr-24 xl:pr-32 text-white bg-">
+        <div className="w-full h-full bg-black pt-5 pb-4 px-20 sm:pr-10 md:pr-16 lg:pr-24 xl:pr-32 text-white bg-">
           <h3 className="text-7xl font-bold pb-5">Let’s Talk.</h3>
           <p>
             Take the first step toward meaningful and measurable change by
@@ -19,7 +19,7 @@ function Subscribe() {
           </p>
           <span className="h-[2px] w-2/3 bg-slate-100 flex my-5"></span>
           <form action="" className="w-full mt-8">
-            <div className="grid md:grid-cols-2 gap-4 mb-4">
+            <div className="grid md:grid-cols-2 gap-4 mb-2">
               <div className="form-group grid gap-1">
                 <label
                   htmlFor="last-name"
@@ -47,7 +47,7 @@ function Subscribe() {
                 />
               </div>
             </div>
-            <div className="form-group grid gap-4 mb-4">
+            <div className="form-group grid gap-4 mb-2">
               <div className="form-group grid gap-1">
                 <label
                   htmlFor="email"
@@ -62,7 +62,7 @@ function Subscribe() {
                 />
               </div>
             </div>
-            <div className="form-group grid gap-4 mb-4">
+            <div className="form-group grid gap-4 mb-2">
               <div className="form-group grid gap-1">
                 <label
                   htmlFor="email"
@@ -71,14 +71,14 @@ function Subscribe() {
                   Message
                 </label>
                 <textarea
-                  rows="5"
+                  rows="2"
                   type="text"
                   placeholder="Email"
                   className="input-lg rounded-lg text-sm py-3 border-2 border-cyan-800/30 placeholder:pl-2"
                 />
               </div>
             </div>
-            <div className="form-group flex justify-between mb-4 mt-6">
+            {/* <div className="form-group flex justify-between mb-2 mt-6">
               <div className="flex items-center mb-8">
                 <input
                   type="checkbox"
@@ -98,10 +98,10 @@ function Subscribe() {
               <a href="#" className="text-neutral-950 underline text-sm">
                 Need help?
               </a>
-            </div>
+            </div> */}
             <button
               type="submit"
-              className="w-full btn bg-[#fff200] rounded-full px-8 py-3 text-lg text-neutral-950 font-bold text-center"
+              className="w-full btn bg-[#fff200] rounded-full mt-5 px-8 py-3 text-lg text-neutral-950 font-bold text-center"
             >
               Send Message <BsArrowDownRight className="inline text-2xl" />
             </button>
